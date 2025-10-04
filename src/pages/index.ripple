@@ -1,0 +1,31 @@
+
+import { track } from 'ripple';
+import {Link, appStore } from "ripple-file-router"
+import TopHeader from "../components//top-header.ripple"
+import LeftSideBar from "../components/left-sidebar.ripple"
+import GeneralLayout from "../layouts/general.ripple"
+import ContactCard from "../components/homecomps/contact_card.ripple"
+import RecentWorks from "../components/homecomps/recent_work_card.ripple"
+import Theme from "../utils/theme.ripple"
+import FullContactComp from "../components/contactcomps/full_contact_card.ripple"
+
+
+
+
+export default component Home(){
+  <head>
+    <title>{`Ava 365 | Sales Hub`} </title>
+  </head>
+  <GeneralLayout classes="homepage  w-full">
+  <div class="flex gap-1 " >
+    <RecentWorks />
+    <div class="dark:bg-gradient-to-br dark:from-zinc-800 dark:via-[black] dark:to-zinc-900  bg-gradient-to-br p-4 gap-4 from-[#efff9c]  via-[#faf2e7] to-white  h-screen rounded-4xl mr-3 flex-1">
+
+    <div class="pagecontent">
+      <FullContactComp />
+    </div>
+
+    </div>
+  </div>
+  </GeneralLayout>
+}

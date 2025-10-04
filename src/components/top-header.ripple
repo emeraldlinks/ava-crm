@@ -1,0 +1,41 @@
+import { Link } from 'ripple-file-router';
+
+
+const navItems = [
+	{name: "search", icon: "ri-search-line"},
+	{name: "todos", icon: "ri-checkbox-circle-line"},
+	{name: "new", icon: "ri-add-line"},
+	{name: "ideas", icon: "ri-lightbulb-line"},
+	{name: "filter", icon: "ri-filter-2-line"},
+	{name: "settings", icon: "ri-settings-5-line"},
+	{name: "enquiry", icon: "ri-question-mark"},
+	{name: "support", icon: "ri-customer-service-2-fill"},
+
+]
+
+export default component TopHeader() {
+	<div class=' bg-[#d2d2d2] text-black dark:text-white dark:bg-[#070707] pl-6 sticky  h-14 top-0 flex justify-between items-center '>
+		<div class='flex gap-4 pt-4 items-center '>
+		{/* Unknown: JSXEmptyExpression */}
+		/* left  side contents like logo and brand */
+		<div class='lef-items items-center flex gap-4 '>
+			<Link href='/'><i class='ri-grid-fill text-3xl ' /></Link>
+			<h1 class='font-semibold'>{'Ava 365'}</h1>
+		</div>
+		<div class='h-[1.4rem] w-[1px] bg-[#a1a1a1] ' />
+		<h3 class='s'>{'Sales Hub'}</h3>
+	</div>
+
+	{/* main navgators */}
+	<div class="mainnavigators flex items-center gap-2 pr-4">
+		for (const itm of navItems){
+			<Link href='/' className="border-[0.2px] border-gray-400 rounded-full px-2 py-1" ><i class={` text-lg ${itm.icon}`} /></Link>
+
+			
+		}
+            <image src="/aim.png" class='w-[2.5rem] p-2 rounded-full  bg-[#e1ff00] ' />
+
+
+	</div>
+	</div>
+}

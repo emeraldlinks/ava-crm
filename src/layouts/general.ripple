@@ -1,0 +1,22 @@
+
+import {track } from 'ripple';
+import type { Component} from "ripple"
+import {Link } from "ripple-file-router"
+import TopHeader from "../components//top-header.ripple"
+import LeftSideBar from "../components/left-sidebar.ripple"
+
+interface Props {
+    children: Component
+    classes?: string
+}
+export default component GeneralLayout({classes, children}: Props){
+  <TopHeader />
+  
+  <div class="flex  justify-">
+      <LeftSideBar />
+      <div class={`${classes} flex-1 overflow-y-hidden h-[91.2vh] relative top-0   transition-all `} >
+        <children />
+      </div>
+
+  </div>
+}

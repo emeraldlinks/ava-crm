@@ -1,0 +1,39 @@
+
+import ContactCard from "../homecomps/contact_card.ripple"
+
+const works = [
+    {name: "Gabriela Christiansen", image: "" , active: true, activity: "First customer call", type: "Lead", number: "890347544", count: 90},
+    {name: "Jame Steven", image: "", active: false, activity: "Follow up email", type: "Lead", number: "e76347544", count: 40},
+    {name: "Gordon Vincent", image: "" , active: false, activity: "First customer call", type: "Lead", number: "890347544", count: 90},
+    {name: "Victor Hubbs", image: "", active: false, activity: "Delivery mail", type: "Lead", number: "e76347544", count: 40},
+    {name: "Steven June", image: "", active: false, activity: "Follow up email", type: "Lead", number: "e76347544", count: 40},
+    {name: "Ola Gibbs", image: "", active: false, activity: "Follow up email", type: "Lead", number: "e76347544", count: 40},
+]
+
+export default component RecentWorks(){
+    
+
+    <div class="h-[95vh] shadow w-[30%] dark:bg-[#202020] bg-[#e3e3e3] rounded-4xl px-2 ">
+    <div class="top-side mb- flex justify-between px-4 py-6 ">
+        <h1 class="text-3xl font-semibold font-mono ">{"My Work"} </h1>
+        <div class="actions flex gap-1">
+            <i class={`ri-mail-line  text-lg border-[0.2px] border-gray-400  rounded-full px-2 py-1 `} />
+            <i class={`ri-calendar-line  text-lg border-[0.2px] border-gray-400  rounded-full px-2 py-1 `} />
+            <i class={`ri-search-line  text-lg border-[0.2px] border-gray-400  rounded-full px-2 py-1 `} />
+
+        </div>
+    </div>
+   
+           <div class="flex flex-col scroll-m-10  gap-1 h-[85%] px-1 overflow-scroll pb-6 rounded-4xl hide-scrollbar  ">
+            
+             <div class=" py-2 flex w-full relative items-center  ">
+        <span class="w-2/6 relative h-[1px] bg-gray-400 " >{""}</span>
+        <p class="text-center relative w-2/4 h-[1p] self-center ">{"Today"} </p>
+        <span class="w-2/6 relative h-[1px] bg-gray-400 " >{""}</span>
+    </div>
+            for (const wrk of works ){
+                <ContactCard cont={wrk} />
+            }
+        </div>
+    </div>
+}

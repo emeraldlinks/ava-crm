@@ -1,0 +1,35 @@
+{
+  "name": "avacrm",
+  "version": "1.0.0",
+  "description": "A Ripple application created with create-ripple",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "prettier": "^3.6.2",
+    "prettier-plugin-ripple": "^0.2.29",
+    "tailwindcss-cli": "^0.1.2",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.4",
+    "vite-plugin-ripple": "^0.2.29"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.14",
+    "remixicon": "^4.6.0",
+    "ripple": "^0.2.35",
+    "ripple-file-router": "^0.0.9",
+    "tailwindcss": "^4.1.14"
+  }
+}

@@ -1,0 +1,44 @@
+import { Link } from 'ripple-file-router';
+
+
+
+
+
+interface PersonActivity {
+  name: string;
+  image: string;
+  active: boolean;
+  activity: string;
+  type: string;
+  number: string;
+  count: number; 
+}
+
+
+
+export default component ContactCard({cont}: {cont: PersonActivity}) {
+	<div class="dark:text-white dark:bg-gradient-to-br dark:from-black dark:to-zinc-800  flex flex-col shadow gap-8 rounded-4xl  bg-gradient-to-br from-white to-green-50 p-2">
+       
+        {/* contact info */}
+        <div class='flex justify-between'>
+            <image src="/aim.png" class='w-[3rem] p-2 rounded-full  bg-[#e1ff00] ' />
+            <div class='cus-info'>
+                <h2 class='name_full font-bold '>{cont.name}</h2>
+                <p class='text-sm action_name text-gray-400 '>{cont.activity}</p>
+            </div>
+            <i class={`ri-mail-line  text-2xl border-[0.2px] border-gray-400  rounded-full px-[0.6rem] flex items-center justify-between  py-1 `} />
+        </div>
+        {/* other info */}
+        <div class="flex justify-between">
+            <div class="status_and_number flex gap-8 items-center  ">
+            <p class="status dark:bg-[#131212] bg-[white] px-2 rounded-full ">{cont.type} </p>
+            <p class="phone_number px-2 rounded-full dark:bg-[#131212] bg-[white]">{cont.number} </p>
+            </div>
+            <i class={` text-2xl  rounded-full px-[0.6rem] flex items-center justify-between  h-[3rem] w-[3rem] bg-black text-white `} >{cont.count} </i>
+
+        </div>
+
+
+
+    </div>
+}

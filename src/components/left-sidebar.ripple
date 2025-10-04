@@ -1,0 +1,99 @@
+import { Link, useRouter, createStore } from 'ripple-file-router';
+import {track, on } from "ripple"
+
+
+const mainItems = [
+	{
+        name: "",
+        items: [
+            {name: "Home", icon: "ri-home-4-line", url: "/"},
+            {name: "Recent", icon: "ri-history-fill", url: "/recent"},
+            {name: "Pinned", icon: "ri-pushpin-line", url: "/pinned"},
+        ]
+    },
+    	{
+        name: "My Work",
+        items: [
+            {name: "Sales accelerator", icon: "ri-rocket-line ", url: "/sales-accelerator"},
+            {name: "Dashboard", icon: "ri-dashboard-line", url: "/dashboard"},
+            {name: "Activities", icon: "ri-rhythm-line", url: "/activities"},
+        ]
+    },
+    {
+        name: "Performance",
+        items: [
+            {name: "Leads", icon: "ri-rocket-line ", url: "/sales-accelerator"},
+            {name: "Opportunities", icon: "ri-lightbulb-line", url: "/dashboard"},
+        ]
+    },
+     {
+        name: "Sales",
+        items: [
+            {name: "Sales", icon: "ri-rocket-line ", url: "/sales-accelerator"},
+            {name: "Dashboard", icon: "ri-dashboard-line", url: "/dashboard"},
+            {name: "Activities", icon: "ri-rhythm-line", url: "/activities"},
+        ]
+    },
+    
+
+]
+
+export const navStor = createStore({isOpen: true}, {persist: true, storageKey: "navstate"})
+export default component LeftSideBar(){
+    const router = useRouter()
+    const isActive = (url: string)=>  {
+        if (url === router.path) return true
+    }
+    const navOpen  = track(true)
+
+    navStor.subscribe((state)=> {
+        @navOpen = state.isOpen
+    })
+
+    
+
+    const divRef = (el: HTMLElement)=> {
+      
+       
+       
+    }
+
+
+    on(window, "keydown", (e: KeyboardEvent)=> {
+         if (e.ctrlKey && e.key === "b" ){
+            e.preventDefault();
+            navStor.update({isOpen: !@navOpen})
+        }
+    })
+
+    <div {ref divRef}
+     class={`mainleftsidebar transition-all !h-[91.2vh] pt-8 overflow-y-hidden  flex flex-col pl-2  gap-4 ${@navOpen ? "max-w-[22%] w-[20%] pr-5 " : "max-w-[5%]"}  pr-2 `}>
+        <div class={`header ${@navOpen ? "ml-4" : "ml- " }  mt-8 text-3xl flex gap-6 justify-between font-mono items-center "`}>
+            <h1 class={` ${@navOpen ? " block " : "hidden"}  `}>{"Menu"}</h1>
+            <i onClick={()=> navStor.update({isOpen: !@navOpen})} class="ri-expand-left-line !font-extralight text-3xl border-[0.2px] border-gray-400 rounded-full px-2 py-[5px] cursor-pointer "/>
+
+        </div>
+        <div class="flex flex-col overflow-y-scroll gap-6 hide-scrollbar ">
+            for (const itm of mainItems){
+                <div class="subitems">
+                    <div class="subitems flex flex-col gap-2 text-nowrap ">
+                        const spli = itm.name.split(" ")
+                        const more = spli.length > 1 ? spli[1] : spli[0]
+                    <p class={`itile font-medium ${@navOpen ? " ml-6 " : "ml-2 text-sm"} `}>{ @navOpen ? itm.name : more}</p>
+                        for (const sub of itm.items){
+                            
+                        <Link href={sub.url} className={`flex py-1 rounded-full pl-1 items-center gap-4 ${isActive(sub.url) ?  "bg-[#ecff8c] dark:text-black " : ""} ${!@navOpen ? "items-center flex justify-center  w-fit px-1": ""} `} ><i class={`${sub.icon} text-lg border-[0.2px] border-gray-400  rounded-full px-2 py-1 `} /> 
+                        if (@navOpen){
+
+                            <p class="text-nowrap"> {sub.name} </p> </Link>
+                        }
+                        }
+                    </div>
+                </div>
+        </div>
+            
+        }
+    </div>
+
+
+}

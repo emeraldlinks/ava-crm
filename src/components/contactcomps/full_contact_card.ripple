@@ -1,0 +1,32 @@
+import { track } from "ripple"
+import Buttons from "./contact_header_buttons.ripple"
+import ContactProfileCard from "./contact_profile.ripple"
+import Progress from "./progress.ripple"
+import LeadDetail from "./lead_detail.ripple"
+import CRMBoard from "./contact_crm_board.ripple"
+
+
+
+
+export default component FullContactComp() {
+	<div class="flex flex-col hide-scrollbar rounded-4xl  pt-4 h-[99vh] pb-16 overflow-y-scroll">
+		<Buttons />
+		<ContactProfileCard />
+		<Progress />
+		<CRMBoard />
+	</div>
+}
+
+
+
+
+
+
+/* Unknown: JSXEmptyExpression */
+
+
+
+
+
+
+

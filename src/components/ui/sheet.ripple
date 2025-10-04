@@ -1,0 +1,60 @@
+import { createStore } from 'ripple-file-router';
+import { track, on } from 'ripple';
+import type { Component } from 'ripple';
+
+interface Props {
+	name?: string;
+	classes?: string;
+	children: Component;
+	trigger: Component;
+	direction?: 'right' | 'left' | 'top' | 'bottom';
+}
+
+export default component Sheet({ name, direction = 'right', children, trigger, classes }: Props) {
+	const store = createStore({
+		isOpen: false,
+	}, {
+		persist: !!name,
+		storageKey: name ?? '',
+	});
+
+	const open = track(store.get().isOpen);
+
+	store.subscribe((state) => {
+		@open = state.isOpen;
+	});
+
+
+
+	
+
+	on(window, "keydown", (e: keyboardEvent)=> {
+		if (e.key === "Escape" && @open ){
+			e.preventDefault()
+			store.update({
+				isOpen: false,
+			})
+		}
+	})
+
+	<div class='inline-block'>
+		{/* Unknown: JSXEmptyExpression */}
+		/* Trigger */
+		
+		<div onClick={() => store.update({
+				isOpen: !@open,
+			})}>
+			{"dd"}
+			<trigger /></div>
+		
+		if (@open){
+		<div class={`fixed dark:bg-black sheet h-screen bg-white shadow-xl z-[9999] transition-transform w-[30vw] duration-300 ease-in-out rounded-l-x   top-0 right-0 `}>
+		<div onClick={() => store.update({
+				isOpen: false,
+			})} class="closebtn m-2 text-1rem border-black cursor-pointer w-fit px-2 border-2 dark:border-[#a7a3a3]">
+			{"x"}
+		</div>
+		<children /></div>
+		}
+	</div>
+}

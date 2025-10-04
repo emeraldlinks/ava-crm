@@ -1,0 +1,84 @@
+
+
+
+
+export default component LeadDetail() {
+  const lead = {
+    name: "S Cafe Grande Espresso Machines",
+    contactPerson: "John Doe",
+    position: "Purchasing Manager",
+    email: "john.doe@scafegroup.com",
+    phone: "+1 (555) 555-5555",
+    timeline: "Last Contacted: 3 Days Ago",
+    nextAction: "First Customer Call",
+    leadScore: 90,
+    grade: "A - Steady",
+    nextSteps: [
+      { label: "Call to Introduce Yourself", status: "active" },
+      { label: "Follow Up", status: "inactive" },
+      { label: "Second Customer Call", status: "inactive" },
+    ]
+  };
+
+  const progress = [
+    { value: "Qualify", active: true },
+    { value: "Develop", active: true },
+    { value: "Propose", active: false },
+    { value: "Close", active: false },
+  ];
+
+  const completed = progress.filter(p => p.active).length;
+  const percent = (completed / progress.length) * 100 + "%";
+
+  <div class="w-full max-w-4xl mt-10 rounded-3xl p-6 bg-gradient-to-tr from-[#e3ffd0] to-[#fff7e3] dark:from-zinc-800 dark:to-zinc-900 shadow-sm">
+    
+    {/* Contact Information */}
+    <div class="mb-6">
+      <p class="text-lg font-semibold text-gray-800 dark:text-gray-100">{lead.name}</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400">{lead.contactPerson} {"- "}{lead.position}</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400">{lead.email}</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400">{lead.phone}</p>
+    </div>
+
+    {/* Lead Score */}
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center space-x-3">
+        <div class="text-3xl font-semibold text-[#4CAF50]">{lead.leadScore}</div>
+        <span class="text-gray-600 dark:text-gray-400">{"Grade "} {lead.grade}</span>
+      </div>
+      <div class="text-sm text-gray-600 dark:text-gray-400">
+        <ul>
+          <li>{"Purchase timeframe is next quarter"}</li>
+          <li>{"Purchase process is individual"}</li>
+          <li>{"Lead is relatively warm"}</li>
+        </ul>
+      </div>
+    </div>
+
+   
+
+    {/* Next Steps */}
+    <div class="mt-6">
+      <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{"Next Steps"}</h3>
+      <div class="space-y-2 mt-3">
+          for (const step of lead.nextSteps) {
+            <div class={`flex justify-between items-center p-3 rounded-lg shadow-lg ${
+              step.status === "active"
+                ? "bg-green-100 text-green-800"
+                : "bg-gray-100 text-gray-800"
+            }`}>
+              <span>{step.label}</span>
+              <button class={`px-4 py-2 rounded-lg ${
+                step.status === "active" 
+                  ? "bg-blue-500 text-white" 
+                  : "bg-gray-300 text-gray-600"
+              }`}>
+                {step.status === "active" ? "Mark Complete" : "Set Reminder"}
+              </button>
+            </div>
+		  }
+      </div>
+    </div>
+
+  </div>
+}

@@ -1,0 +1,81 @@
+
+import {effect, track, TrackedArray } from "ripple"
+import Sheet from "../ui/sheet.ripple"
+
+export default component Progress(){
+
+	const progress = TrackedArray.from([
+		{ value: "Qualify", active: track(true) },
+		{ value: "Develop", active: track(false) },
+		{ value: "Propose", active: track(true) },
+		{ value: "Close", active: track(true) },
+	])
+
+	// calculate percentage of active steps
+	let completed = track(progress.filter(p => p.@active).length)
+	let percent = track((@completed / progress.length) * 100 + "%")
+
+    effect(()=> {
+        completed = track(progress.filter(p => p.@active).length)
+        percent = track((@completed / progress.length) * 100 + "%")
+    })
+	<div class="w-full max-w-4xl mt-10 rounded-3xl p-6 bg-gradient-to-tr from-[#e3ffd0] to-[#fff7e3] dark:from-zinc-800 dark:to-zinc-900 shadow-sm">
+		
+		{/* Header */}
+		<div class="flex items-center justify-between mb-4">
+			<div>
+				<h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{"Opportunity Sales Process"}</h2>
+				<p class="text-sm text-gray-500 dark:text-gray-400">{"Active for 3 Days"}</p>
+			</div>
+			{"save ss"}
+		<Sheet
+  trigger={openBu}
+  name="someslidestoreagain"
+>
+  <div class="p-4">
+    <h2 class="text-lg font-semibold">{"Sheet Content"}</h2>
+    <p>{"Here’s the body of the sheet."}</p>
+  </div>
+</Sheet>
+
+
+		</div>
+
+		{/* Progress Bar */}
+		<div class="relative flex items-center justify-between bg-white/60 dark:bg-zinc-700/60 backdrop-blur-md rounded-full px-4 py-3 overflow-hidden border border-white/30 dark:border-zinc-600 shadow-inner">
+			
+			{/* Dynamic Gradient Fill */}
+			<div class="absolute left-0 top-0 h-full bg-gradient-to-r from-[#62f7b4] via-[#3fd1ff] to-[#7ed7ff] rounded-full transition-all duration-700" style={`width: ${@percent}`}></div>
+
+			{/* Steps */}
+			<div class="relative flex items-center justify-between w-full z-10">
+				for (const p of progress){
+					<div class="flex flex-col items-center">
+						<div class={`w-9 h-9 flex items-center justify-center rounded-full font-semibold shadow-lg ${
+							p.active 
+								? "bg-gradient-to-r from-[#56f1a9] to-[#43d1ff] text-white" 
+								: "bg-white dark:bg-zinc-800 border-2 border-gray-200 dark:border-zinc-600 text-gray-700 dark:text-gray-200"
+						}`} onClick={()=> {
+							p.@active = !p.@active
+                            console.log("active: ", p.@active)
+							console.log("percentage: ", @percent)
+						}} >
+							{progress.indexOf(p) + 1}
+						</div>
+						<span class="text-[11px] mt-1 text-gray-700 dark:text-gray-500 ">{p.value}</span>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+}
+
+
+
+
+
+component openBu(){
+	<button class="px-4 py-2 bg-green-600 text-white text-sm rounded-xl shadow hover:bg-green-700 transition dark:bg-green-500 dark:hover:bg-green-600">
+				{"Save"}
+			</button>
+}

@@ -1,0 +1,60 @@
+
+
+
+
+
+export default component ContactProfileCard() {
+	<div class='contact_profile_card flex mt-8 justify-between '><div class='leftside flex gap-8 w-full '>
+		<img src='/aim.png' alt='' class='profileImage bg-[#ffffff] rounded-full p-2 w-[4rem] h-[4rem] ' />
+
+		<div class='proiledata_texts w-full flex flex-col gap-2 '>
+			<h1 class='font-light text-3xl '>{'Gabriela Christiansen'}</h1>
+			{/* Unknown: JSXEmptyExpression */}
+
+			/* Unknown: JSXEmptyExpression */
+			/* tag_insights */
+			<span class='flex justify-between w-full flex-1 items-center '>
+				<div class='tag_insights flex gap-4 '>
+					<p class='activity dark:text-black text-sm text-nowrap truncate bg-[#e4f0a6] rounded-full px-3 py-1 '>{'Lead'}</p>
+					<p class='sj dark:text-black text-sm text-nowrap truncate bg-[#e4f0a6] rounded-full px-3 py-1'>{'Sales Insight'}</p>
+				</div>
+				const items = [
+					{
+						name: 'Lead source',
+						value: 'Webinar',
+					},
+					{
+						name: 'Rating',
+						value: 'Warm',
+					},
+					{
+						name: 'Status',
+						value: 'New',
+					},
+				];
+
+				<div class='place-self-start justifystart'>
+					<div class='items flex flex- gap-8 '>
+                    for (const itm of items) {
+						<div class='lead-source  text-sm '>
+							<p class='text-gray-400 text-nowrap '>{itm.name}</p>
+							<p class='text-black  text-sm text-nowrap dark:text-white  font-bold '>{itm.value}</p>
+						</div>
+					}
+
+                    <div class="contact_owner flex gap-4 ">
+                        <img src="/aim.png" alt="" class="w-[3rem] text-sm  rounded-full bg-[#bbf1c9] p-2 h-[3rem] "/>
+                        <div class="details" >
+                            <p class="owner">{"owner"} </p>
+                            <p class="names text-sm font-bold ">{"John Hopkins"} </p>
+
+                        </div>
+                    </div>
+                    
+                    </div>
+					{/* Unknown: JSXEmptyExpression */}
+				</div>
+			</span>
+		</div>
+	</div></div>
+}
