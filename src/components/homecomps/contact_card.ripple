@@ -1,8 +1,9 @@
 import { Link } from 'ripple-file-router';
+import  type {UserContactType } from "../../types/user.ts"
+import activeContactStore from "../../stores/contact_store.ts"
 
 
-
-
+import {track, effect} from "ripple"
 
 interface PersonActivity {
   name: string;
@@ -16,9 +17,22 @@ interface PersonActivity {
 
 
 
-export default component ContactCard({cont}: {cont: PersonActivity}) {
-	<div class="dark:text-white dark:bg-gradient-to-br dark:from-black dark:to-zinc-800  flex flex-col shadow gap-8 rounded-4xl  bg-gradient-to-br from-white to-green-50 p-2">
-       
+export default component ContactCard({cont, active}: {cont: UserContactType, active: boolean}) {
+
+
+
+  
+	<div
+    onClick={()=> {
+        activeContactStore.update({contact: {...cont, active: true}})
+    }}
+
+ 
+  class={`dark:text-white cursor-pointer ${   active
+      ? "!bg-gradient-to-br  !from-green-100 !to-green-300"
+      : "bg-gradient-to-br from-white to-green-50"
+  } dark:bg-gradient-to-br dark:from-black dark:to-zinc-800 flex flex-col shadow gap-8 rounded-4xl p-2`}
+>
         {/* contact info */}
         <div class='flex justify-between'>
             <image src="/aim.png" class='w-[3rem] p-2 rounded-full  bg-[#e1ff00] ' />

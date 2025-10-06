@@ -16,20 +16,21 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "prettier-plugin-ripple": "^0.2.29",
-    "tailwindcss-cli": "^0.1.2",
     "typescript": "^5.9.2",
     "vite": "^7.1.4",
     "vite-plugin-ripple": "^0.2.29"
   },
   "dependencies": {
+    "@fastify/schedule": "^6.0.0",
+    "@fastify/websocket": "^11.2.0",
     "@tailwindcss/vite": "^4.1.14",
+    "fastify": "^5.6.1",
     "remixicon": "^4.6.0",
     "ripple": "^0.2.35",
     "ripple-file-router": "^0.0.9",
-    "tailwindcss": "^4.1.14"
+    "tailwindcss": "^4.1.14",
+    "toad-scheduler": "^3.1.0"
   }
 }

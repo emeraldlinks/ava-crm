@@ -1,60 +1,93 @@
-
+import { track, TrackedArray  } from "ripple"
+import   type {UserContactType} from "../../types/user.ts"
+import activeContactStore from "../../stores/contact_store.ts"
 
 
 
 
 export default component ContactProfileCard() {
-	<div class='contact_profile_card flex mt-8 justify-between '><div class='leftside flex gap-8 w-full '>
-		<img src='/aim.png' alt='' class='profileImage bg-[#ffffff] rounded-full p-2 w-[4rem] h-[4rem] ' />
+	
+	const contact = track<UserContactType| null >(null)
 
-		<div class='proiledata_texts w-full flex flex-col gap-2 '>
-			<h1 class='font-light text-3xl '>{'Gabriela Christiansen'}</h1>
-			{/* Unknown: JSXEmptyExpression */}
+	activeContactStore.subscribe((state)=> {
+		@contact = state.contact;
+	});
+	
+	const items = TrackedArray.from([
+		{ name: 'Lead source', value: track(@contact.lead_source) },
+		{ name: 'Rating', value: track(@contact.rating) },
+		{ name: 'Status', value: track(@contact.status) },
+	])
 
-			/* Unknown: JSXEmptyExpression */
-			/* tag_insights */
-			<span class='flex justify-between w-full flex-1 items-center '>
-				<div class='tag_insights flex gap-4 '>
-					<p class='activity dark:text-black text-sm text-nowrap truncate bg-[#e4f0a6] rounded-full px-3 py-1 '>{'Lead'}</p>
-					<p class='sj dark:text-black text-sm text-nowrap truncate bg-[#e4f0a6] rounded-full px-3 py-1'>{'Sales Insight'}</p>
-				</div>
-				const items = [
-					{
-						name: 'Lead source',
-						value: 'Webinar',
-					},
-					{
-						name: 'Rating',
-						value: 'Warm',
-					},
-					{
-						name: 'Status',
-						value: 'New',
-					},
-				];
+	<div class="contact_profile_card flex flex-col sm:flex-row mt-8 justify-between gap-4 sm:gap-8 p-4 sm:p-0">
+		{/* left side */}
+		<div class="leftside flex flex-col sm:flex-row  gap-6 w-full items-center sm:items-start">
+			<img src="/aim.png" alt="" class="profileImage bg-[#ffffff] rounded-full p-2 w-[4rem] h-[4rem]" />
 
-				<div class='place-self-start justifystart'>
-					<div class='items flex flex- gap-8 '>
-                    for (const itm of items) {
-						<div class='lead-source  text-sm '>
-							<p class='text-gray-400 text-nowrap '>{itm.name}</p>
-							<p class='text-black  text-sm text-nowrap dark:text-white  font-bold '>{itm.value}</p>
+			<div class="proiledata_texts w-full flex flex-col gap-2">
+				<h1 class="font-light text-2xl sm:text-3xl text-center sm:text-left">
+					{@contact.name }
+				</h1>
+
+				{/* tag_insights */}
+				<span class="flex flex-col  overflow-x-hidden flex-wrap space-y-4 sm:flex-row justify-between w-full items-center sm:items-center gap-4 sm:gap-0">
+					<div class="tag_insights flex flex-wrap justify-center sm:justify-start gap-3">
+						<p class="activity dark:text-black text-sm max-w-[12rem] text-nowrap truncate bg-[#e4f0a6] rounded-full px-3 py-1">
+							{@contact?.activity }
+						</p>
+						<p class="sj dark:text-black text-sm text-nowrap truncate bg-[#e4f0a6] rounded-full px-3 py-1">
+							{"Sales Insight"}
+						</p>
+					</div>
+
+					<div class="place-self-start">
+						<div class="items flex flex-wrap sm:flex-nowrap justify-center sm:justify-start gap-6 sm:gap-8">
+							<div class="lead-source text-sm text-center sm:text-left">
+									<p class="text-gray-400 text-nowrap">{"Lead source" }</p>
+									<p class="text-black text-sm text-nowrap dark:text-white font-bold">
+										{@contact.lead_source}
+									</p>
+								</div>
+
+								<div class="lead-source text-sm text-center sm:text-left">
+									<p class="text-gray-400 text-nowrap">{"Rating" }</p>
+									<p class="text-black text-sm text-nowrap dark:text-white font-bold">
+										{@contact.rating}
+									</p>
+								</div>
+
+								<div class="lead-source text-sm text-center sm:text-left">
+									<p class="text-gray-400 text-nowrap">{"Status" }</p>
+									<p class="text-black text-sm text-nowrap dark:text-white font-bold">
+										{@contact.status}
+									</p>
+								</div>
+
+
+							{/* for (const itm of items) {
+								<div class="lead-source text-sm text-center sm:text-left">
+									<p class="text-gray-400 text-nowrap">{itm.@name}</p>
+									<p class="text-black text-sm text-nowrap dark:text-white font-bold">
+										{itm.@value}
+									</p>
+								</div>
+							} */}
+
+							<div class="contact_owner flex items-center gap-4 mt-4 sm:mt-0 justify-center sm:justify-start">
+								<img src="/aim.png" alt="" class="w-[3rem] h-[3rem] rounded-full bg-[#bbf1c9] p-2" />
+								<div class="details text-center sm:text-left">
+									<p class="owner text-gray-400 text-sm">
+										{"Owner"}
+									</p>
+									<p class="names text-sm font-bold">
+										{@contact.owner }
+									</p>
+								</div>
+							</div>
 						</div>
-					}
-
-                    <div class="contact_owner flex gap-4 ">
-                        <img src="/aim.png" alt="" class="w-[3rem] text-sm  rounded-full bg-[#bbf1c9] p-2 h-[3rem] "/>
-                        <div class="details" >
-                            <p class="owner">{"owner"} </p>
-                            <p class="names text-sm font-bold ">{"John Hopkins"} </p>
-
-                        </div>
-                    </div>
-                    
-                    </div>
-					{/* Unknown: JSXEmptyExpression */}
-				</div>
-			</span>
+					</div>
+				</span>
+			</div>
 		</div>
-	</div></div>
+	</div>
 }

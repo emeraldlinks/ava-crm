@@ -3,11 +3,28 @@ import {PageRoutes} from "ripple-file-router"
 import { modules } from "./routes";
 import 'remixicon/fonts/remixicon.css'
 import Theme from "./utils/theme.ripple"
+import Toaster, {useToast} from "./utils/toast.ripple"
 
 
 
 export component App() {
         <PageRoutes modules={modules}  />
     <Theme />
+    const toast = useToast()
+ toast({
+          title: "Saved!",
+          description: "Your changes have been saved successfully.",
+          type: "success",
+          duration: 3000,
+        })
+         toast({  
+          title: "Saved!",
+          description: "Your changes have been saved successfully.",
+          type: "success",
+          duration: 3000,
+        })
+
+    <Toaster />
+
       
 }

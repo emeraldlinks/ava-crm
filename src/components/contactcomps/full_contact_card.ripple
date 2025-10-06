@@ -9,7 +9,7 @@ import CRMBoard from "./contact_crm_board.ripple"
 
 
 export default component FullContactComp() {
-	<div class="flex flex-col hide-scrollbar rounded-4xl  pt-4 h-[99vh] pb-16 overflow-y-scroll">
+	<div class="flex flex-col hide-scrollbar px-4 max-md:px-1 w-full max-w-screen rounded-4xl  pt-4 h-[99vh] pb-16 overflow-y-scroll">
 		<Buttons />
 		<ContactProfileCard />
 		<Progress />

@@ -1,43 +1,21 @@
 const topbuttons = [
-	{
-		name: 'Save',
-		icon: 'ri-save-line',
-		url: '',
-		onClick: () => alert('saved'),
-	},
-	{
-		name: 'New',
-		icon: 'ri-add-line',
-		url: '',
-		onClick: null,
-	},
-	{
-		name: 'Delete',
-		icon: 'ri-delete-bin-line',
-		url: '',
-		onClick: null,
-	},
-	{
-		name: 'Refresh',
-		icon: 'ri-reset-left-line',
-		url: '',
-		onClick: null,
-	},
-	{
-		name: 'Check Access',
-		icon: 'ri-key-line',
-		url: '',
-		onClick: null,
-	},
-];
-
-
+	{ name: 'Save', icon: 'ri-save-line', url: '', onClick: () => alert('saved') },
+	{ name: 'New', icon: 'ri-add-line', url: '', onClick: null },
+	{ name: 'Delete', icon: 'ri-delete-bin-line', url: '', onClick: null },
+	{ name: 'Refresh', icon: 'ri-reset-left-line', url: '', onClick: null },
+	{ name: 'Check Access', icon: 'ri-key-line', url: '', onClick: null },
+]
 
 export default component Buttons() {
-	<div class='top-buttons flex gap-2 items-center'>for (const tp of topbuttons) {
-		<span onClick={() => tp.onClick()} class='border-gray-400 px-2.5 cursor-pointer py-1.5 rounded-4xl flex items-center gap-2 border'>
-			<i class={` ${tp.icon} `} />
-			<p class='ss'>{tp.name}</p>
-		</span>
-	}</div>
+	<div class="top-buttons flex flex-wrap justify-center sm:justify-start gap-2 items-center p-2">
+		for (const tp of topbuttons) {
+			<span
+				onClick={() => tp.onClick?.()}
+				class="border border-gray-400 px-3 py-1.5 rounded-full flex items-center gap-2 cursor-pointer transition-all duration-200 hover:bg-gray-200 dark:hover:bg-[#111] text-sm sm:text-base"
+			>
+				<i class={`${tp.icon} text-lg`} />
+				<p class="hidden xs:block sm:block">{tp.name}</p>
+			</span>
+		}
+	</div>
 }

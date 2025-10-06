@@ -1,44 +1,74 @@
+import { on, effect, track } from 'ripple';
+import { useToast } from "../../utils/toast.ripple"
+import type UserContactType from "../../types/user.ts"
+import {activeContactStore} from "../../stores/contact_store.ts"
 
-
-
-
-export default component CRMBoard(){
-
+export default component CRMBoard() {
+	const toast = useToast()
 	const contacts = [
-		{name: "Gabriela Christiansen", role: "Purchasing Manager", company: "Café Grande Espresso Machines", email: "gabriela@coffeemachines.com", phone: "+995-459-552-306"},
-	]
+		{
+			name: 'Gabriela Christiansen',
+			role: 'Purchasing Manager',
+			company: 'Café Grande Espresso Machines',
+			email: 'gabriela@coffeemachines.com',
+			phone: '+995-459-552-306',
+		},
+	];
 
 	const upNext = [
-		{title: "First Customer Call", desc: "Call to introduce yourself", active: true},
-		{title: "Follow Up", desc: "Send second email", active: false},
-		{title: "Second Customer Call", desc: "Schedule next discussion", active: false},
-	]
+		{ title: 'First Customer Call', desc: 'Call to introduce yourself', active: true },
+		{ title: 'Follow Up', desc: 'Send second email', active: false },
+		{ title: 'Second Customer Call', desc: 'Schedule next discussion', active: false },
+	];
 
-	const leadScore = {score: 90, grade: "A", status: "Steady"}
+	const leadScore = { score: 90, grade: 'A', status: 'Steady' };
 
 	const timeline = [
-		{title: "Search Espresso Machines", time: "2h ago"},
-		{title: "Filled Out Form", time: "5h ago"},
-		{title: "Attended Webinar", time: "Yesterday"},
-	]
+		{ title: 'Search Espresso Machines', time: '2h ago' },
+		{ title: 'Filled Out Form', time: '5h ago' },
+		{ title: 'Attended Webinar', time: 'Yesterday' },
+	];
 
 	const relations = [
-		{name: "Alan Steiner", relation: "Referred by"},
-		{name: "Marian Lee", relation: "Team Member"},
-	]
+		{ name: 'Alan Steiner', relation: 'Referred by' },
+		{ name: 'Marian Lee', relation: 'Team Member' },
+	];
 
-	<div class="grid grid-cols-4 gap-5 p-6 mt-8 bg-gradient-to-br from-[#f4fff3] to-[#fff8ed] dark:from-zinc-900 dark:to-zinc-950 rounded-3xl">
-		
+	const contact = track<UserContactType | null>(null)
+
+	activeContactStore.subscribe((state)=> {
+		@contact = state.contact
+	})
+
+	<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 p-4 sm:p-6 mt-6 bg-gradient-to-br from-[#f4fff3] to-[#fff8ed] dark:from-zinc-900 dark:to-zinc-950 rounded-3xl">
 		{/* Contact & Company */}
-		<div class="col-span-1 flex flex-col gap-4">
+		<div class="flex flex-col gap-4 order-1">
 			<div class="bg-white/70 dark:bg-zinc-800/60 rounded-2xl p-4 shadow-sm backdrop-blur-sm">
 				<h3 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">{"Contact"}</h3>
-				for (const c of contacts){
+				for (const c of @contact?.contacts) {
 					<div class="flex flex-col gap-1 text-sm text-gray-700 dark:text-gray-300">
 						<p class="font-medium">{c.company}</p>
 						<p>{c.role}</p>
 						<p>{c.phone}</p>
-						<p>{c.email}</p>
+
+						const copyRef = (el: HTMLElement) => {
+							el.addEventListener('click', () => {
+								const text = el.innerText || el.textContent || ''
+								navigator.clipboard.writeText(text)
+									.then(() => {
+										
+										toast({
+						title: "Email copied!",
+						description: `Copied successfully`,
+						type: "success",
+						duration: 10000,
+					})
+									})
+									.catch((err) => console.error('Failed to copy:', err))
+							});
+						}
+
+						<p {ref copyRef} class="cursor-pointer truncate">{c.email}</p>
 					</div>
 				}
 			</div>
@@ -50,13 +80,13 @@ export default component CRMBoard(){
 		</div>
 
 		{/* Up Next */}
-		<div class="col-span-1 bg-white/70 dark:bg-zinc-800/60 rounded-2xl p-4 shadow-sm backdrop-blur-sm">
+		<div class="bg-white/70 dark:bg-zinc-800/60 rounded-2xl p-4 shadow-sm backdrop-blur-sm order-2">
 			<h3 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">{"Up Next"}</h3>
-			for (const t of upNext){
-				<div class={`p-3 mb-2 rounded-xl ${t.active ? "bg-gradient-to-r from-[#faffbf] to-[#e8ffb3] text-gray-900" : "bg-white dark:bg-zinc-700 text-gray-700 dark:text-gray-300"}`}>
+			for (const t of @contact?.upNext) {
+				<div class={`p-3 mb-2 rounded-xl ${t.active ? 'bg-gradient-to-r from-[#faffbf] to-[#e8ffb3] text-gray-900' : 'bg-white dark:bg-zinc-700 text-gray-700 dark:text-gray-300'}`}>
 					<p class="font-medium">{t.title}</p>
 					<p class="text-sm">{t.desc}</p>
-					if (t.active){
+					if (t.active) {
 						<button class="mt-2 px-3 py-1 rounded-lg bg-black text-white text-xs">{"Mark Complete"}</button>
 					}
 				</div>
@@ -64,20 +94,22 @@ export default component CRMBoard(){
 		</div>
 
 		{/* Lead Score */}
-		<div class="col-span-1 bg-white/70 h-fit dark:bg-zinc-800/60 rounded-2xl p-4 shadow-sm text-center backdrop-blur-sm">
+		<div class="bg-white/70 h-fit dark:bg-zinc-800/60 rounded-2xl p-4 shadow-sm text-center backdrop-blur-sm order-3">
 			<h3 class="font-semibold text-gray-800 dark:text-gray-100 mb-4">{"Lead Score"}</h3>
 			<div class="flex flex-col items-center justify-center">
-				<div class="w-24 h-24 rounded-full border-[6px] border-green-300 flex items-center justify-center text-4xl font-bold text-green-600">{leadScore.score}</div>
-				<p class="mt-2 text-gray-700 dark:text-gray-300">{`Grade ${leadScore.grade}`}</p>
-				<p class="text-sm text-gray-500 dark:text-gray-400">{leadScore.status}</p>
+				<div class="w-24 h-24 rounded-full border-[6px] border-green-300 flex items-center justify-center text-4xl font-bold text-green-600">
+					{@contact?.leadScore.score}
+				</div>
+				<p class="mt-2 text-gray-700 dark:text-gray-300">{`Grade ${@contact?.leadScore.grade}`}</p>
+				<p class="text-sm text-gray-500 dark:text-gray-400">{@contact?.leadScore.status}</p>
 			</div>
 		</div>
 
 		{/* Relationships & Timeline */}
-		<div class="col-span-1 flex flex-col gap-4">
+		<div class="flex flex-col gap-4 order-4">
 			<div class="bg-white/70 dark:bg-zinc-800/60 rounded-2xl p-4 shadow-sm backdrop-blur-sm">
 				<h3 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">{"Who Knows Whom"}</h3>
-				for (const r of relations){
+				for (const r of @contact?.relations) {
 					<div class="flex items-center justify-between py-1">
 						<p class="text-sm text-gray-700 dark:text-gray-300">{r.name}</p>
 						<span class="text-xs text-gray-500 dark:text-gray-400">{r.relation}</span>
@@ -87,7 +119,7 @@ export default component CRMBoard(){
 
 			<div class="bg-white/70 dark:bg-zinc-800/60 rounded-2xl p-4 shadow-sm backdrop-blur-sm">
 				<h3 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">{"Timeline"}</h3>
-				for (const t of timeline){
+				for (const t of @contact?.timeline) {
 					<div class="flex justify-between py-1 text-sm text-gray-700 dark:text-gray-300">
 						<p>{t.title}</p>
 						<span class="text-xs text-gray-500 dark:text-gray-400">{t.time}</span>
@@ -95,7 +127,5 @@ export default component CRMBoard(){
 				}
 			</div>
 		</div>
-
 	</div>
 }
-

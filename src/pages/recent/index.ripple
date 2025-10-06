@@ -1,0 +1,27 @@
+import { track } from 'ripple';
+import GeneralLayout from "../../layouts/general.ripple"
+
+export default component RecentActivities(){
+  // Simulated data instead of fetching
+  const activities = track([
+    { title: 'Logged in', time: '2 minutes ago' },
+    { title: 'Viewed contact: John Doe', time: '10 minutes ago' },
+    { title: 'Updated lead: Acme Corp', time: '30 minutes ago' },
+    { title: 'Sent email to: jane@example.com', time: '1 hour ago' }
+  ]);
+
+  <GeneralLayout >
+  <div class="recent-activities p-4 bg-white dark:bg-zinc-900 rounded-2xl shadow-md h-full overflow-auto">
+    <h2 class="text-lg font-semibold mb-3">{"Recent Activities"}</h2>
+    <ul class="flex flex-col gap-3">
+  
+  for (const act of @activities){
+          <li class="p-3 rounded-lg bg-zinc-100 dark:bg-zinc-800 shadow-inner flex flex-col">
+            <span class="font-medium">{act.title}</span>
+            <span class="text-sm text-zinc-500 dark:text-zinc-400">{act.time}</span>
+          </li>
+    }
+    </ul>
+  </div>
+  </GeneralLayout>
+}

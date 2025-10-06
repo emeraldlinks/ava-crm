@@ -1,19 +1,194 @@
 
 import ContactCard from "../homecomps/contact_card.ripple"
+import type {UserContactType} from "../../types/user.ts"
+import activeContactStore from "../../stores/contact_store.ts"
 
-const works = [
-    {name: "Gabriela Christiansen", image: "" , active: true, activity: "First customer call", type: "Lead", number: "890347544", count: 90},
-    {name: "Jame Steven", image: "", active: false, activity: "Follow up email", type: "Lead", number: "e76347544", count: 40},
-    {name: "Gordon Vincent", image: "" , active: false, activity: "First customer call", type: "Lead", number: "890347544", count: 90},
-    {name: "Victor Hubbs", image: "", active: false, activity: "Delivery mail", type: "Lead", number: "e76347544", count: 40},
-    {name: "Steven June", image: "", active: false, activity: "Follow up email", type: "Lead", number: "e76347544", count: 40},
-    {name: "Ola Gibbs", image: "", active: false, activity: "Follow up email", type: "Lead", number: "e76347544", count: 40},
+import { track, effect } from "ripple"
+
+
+const works: UserContactType[] = [
+  {
+    name: "Naomi Rodriguez",
+    image: "",
+    active: false,
+    activity: "Scheduled product demo",
+    type: "Lead",
+    number: "8093214778",
+    count: 72,
+    lead_source: "LinkedIn",
+    rating: "A",
+    status: "In Progress",
+    owner: "Grace Peters",
+    contacts: [
+      { name: "Alan Steiner", role: "Team Member", company: "Coffee Corp", email: "alan@coffee.com", phone: "+995-459-552-101" }
+    ],
+    upNext: [
+      { title: "Follow Up", desc: "Send second email", active: false },
+      { title: "Second Customer Call", desc: "Schedule next discussion", active: true }
+    ],
+    leadScore: { score: 72, grade: "B", status: "Steady" },
+    timeline: [
+      { title: "Visited Website", time: "3h ago" },
+      { title: "Signed Up for Newsletter", time: "Yesterday" }
+    ],
+    relations: [
+      { name: "Marian Lee", relation: "Referred by" }
+    ]
+  },
+  {
+    name: "Marcus Lee",
+    image: "",
+    active: false,
+    activity: "Sent follow-up proposal",
+    type: "Lead",
+    number: "7028841932",
+    count: 54,
+    lead_source: "Referral",
+    rating: "B",
+    status: "Open",
+    owner: "Daniel Cruz",
+    contacts: [
+      { name: "Sophie Allen", role: "Purchasing Manager", company: "Tech Supplies", email: "sophie@techsupplies.com", phone: "+995-459-552-202" }
+    ],
+    upNext: [
+      { title: "First Customer Call", desc: "Introduce product", active: true },
+      { title: "Follow Up", desc: "Send additional info", active: false }
+    ],
+    leadScore: { score: 54, grade: "C", status: "Steady" },
+    timeline: [
+      { title: "Filled Form", time: "2d ago" },
+      { title: "Joined Webinar", time: "Yesterday" }
+    ],
+    relations: [
+      { name: "Tommy Blake", relation: "Team Member" }
+    ]
+  },
+  {
+    name: "Fatima Bello",
+    image: "",
+    active: false,
+    activity: "Customer call scheduled",
+    type: "Lead",
+    number: "9045612883",
+    count: 81,
+    lead_source: "Email Campaign",
+    rating: "A",
+    status: "Negotiation",
+    owner: "Maya Thompson",
+    contacts: [
+      { name: "Nadia Hussein", role: "Operations Manager", company: "Logistics Ltd", email: "nadia@logistics.com", phone: "+995-459-552-303" }
+    ],
+    upNext: [
+      { title: "Initial Call", desc: "Set expectations", active: true },
+      { title: "Follow Up", desc: "Send summary", active: false }
+    ],
+    leadScore: { score: 81, grade: "A", status: "Growing" },
+    timeline: [
+      { title: "Downloaded Whitepaper", time: "4h ago" },
+      { title: "Attended Webinar", time: "Yesterday" }
+    ],
+    relations: [
+      { name: "Omar Ali", relation: "Referred by" }
+    ]
+  },
+  {
+    name: "Liam Thompson",
+    image: "",
+    active: false,
+    activity: "Demo feedback review",
+    type: "Lead",
+    number: "8132097445",
+    count: 38,
+    lead_source: "Website",
+    rating: "C",
+    status: "Closed",
+    owner: "Owen Wallace",
+    contacts: [
+      { name: "Chris Martin", role: "Project Lead", company: "Tech Innovations", email: "chris@techinnovations.com", phone: "+995-459-552-404" }
+    ],
+    upNext: [
+      { title: "Send Proposal", desc: "Include demo notes", active: true },
+      { title: "Follow Up", desc: "Get approval", active: false }
+    ],
+    leadScore: { score: 38, grade: "D", status: "Declining" },
+    timeline: [
+      { title: "Visited Pricing Page", time: "1d ago" },
+      { title: "Downloaded Brochure", time: "Yesterday" }
+    ],
+    relations: [
+      { name: "Ella Brown", relation: "Team Member" }
+    ]
+  },
+  {
+    name: "Aisha Morgan",
+    image: "",
+    active: false,
+    activity: "Initial conversation",
+    type: "Lead",
+    number: "7019358214",
+    count: 63,
+    lead_source: "Event Booth",
+    rating: "B",
+    status: "Open",
+    owner: "Sophia Brown",
+    contacts: [
+      { name: "Daniel Smith", role: "Manager", company: "Event Co", email: "daniel@eventco.com", phone: "+995-459-552-505" }
+    ],
+    upNext: [
+      { title: "Schedule Call", desc: "Discuss requirements", active: true },
+      { title: "Follow Up", desc: "Send resources", active: false }
+    ],
+    leadScore: { score: 63, grade: "B", status: "Steady" },
+    timeline: [
+      { title: "Visited Booth", time: "2h ago" },
+      { title: "Exchanged Cards", time: "Yesterday" }
+    ],
+    relations: [
+      { name: "Lara Wilson", relation: "Referred by" }
+    ]
+  },
+  {
+    name: "Chris Daniels",
+    image: "",
+    active: false,
+    activity: "Sent contract draft",
+    type: "Lead",
+    number: "9093271844",
+    count: 95,
+    lead_source: "Social Media",
+    rating: "A",
+    status: "Pending Approval",
+    owner: "Emma Johnson",
+    contacts: [
+      { name: "Brian Cox", role: "Director", company: "Social Media Ltd", email: "brian@socialmedia.com", phone: "+995-459-552-606" }
+    ],
+    upNext: [
+      { title: "Follow Up", desc: "Check feedback", active: true },
+      { title: "Second Call", desc: "Finalize contract", active: false }
+    ],
+    leadScore: { score: 95, grade: "A", status: "High" },
+    timeline: [
+      { title: "Liked Product Page", time: "3h ago" },
+      { title: "Shared Content", time: "Yesterday" }
+    ],
+    relations: [
+      { name: "Megan Lee", relation: "Team Member" }
+    ]
+  }
 ]
 
-export default component RecentWorks(){
-    
 
-    <div class="h-[95vh] shadow w-[30%] dark:bg-[#202020] bg-[#e3e3e3] rounded-4xl px-2 ">
+
+export default component RecentWorks(){
+
+  const active_contact = track(null)
+    activeContactStore.subscribe((state)=> {
+      @active_contact = state
+      
+  })
+
+
+    <div class="h-[95vh] max-md:hidden shadow w-[30%] dark:bg-[#202020] bg-[#e3e3e3] rounded-4xl px-2 ">
     <div class="top-side mb- flex justify-between px-4 py-6 ">
         <h1 class="text-3xl font-semibold font-mono ">{"My Work"} </h1>
         <div class="actions flex gap-1">
@@ -32,7 +207,7 @@ export default component RecentWorks(){
         <span class="w-2/6 relative h-[1px] bg-gray-400 " >{""}</span>
     </div>
             for (const wrk of works ){
-                <ContactCard cont={wrk} />
+                <ContactCard cont={wrk} active={@active_contact.contact.name === wrk.name }  />
             }
         </div>
     </div>

@@ -1,0 +1,133 @@
+import { track } from "ripple"
+import { createStore } from "ripple-file-router"
+
+type Toast = {
+  id: number
+  title?: string
+  description?: string
+  type?: "default" | "success" | "error" | "info" | "warning"
+  duration?: number
+  _closing?: boolean
+  _paused?: boolean
+  _remaining?: number
+  _timer?: ReturnType<typeof setTimeout> | null
+  _startTime?: number
+}
+
+const toastStore =
+  globalThis.__toastStore ||
+  (globalThis.__toastStore = createStore<{ toasts: Toast[] }>({ toasts: [] }))
+
+export function useToast() {
+  let idCounter = 0
+
+  return (toast: Omit<Toast, "id">) => {
+    const id = idCounter++
+    const now = Date.now()
+    const newToast: Toast = {
+      id,
+      ...toast,
+      _paused: false,
+      _remaining: toast.duration ?? 7000,
+      _timer: null,
+      _startTime: now,
+    }
+
+
+    const state = toastStore.get()
+    toastStore.set({
+      ...state,
+      toasts: [...state.toasts, newToast],
+    })
+
+    startTimer(id)
+  }
+}
+
+function startTimer(id: number) {
+  const state = toastStore.get()
+  const toast = state.toasts.find((t) => t.id === id)
+  if (!toast) return
+
+  toast._startTime = Date.now()
+  toast._timer = setTimeout(() => closeToast(id), toast._remaining)
+  toastStore.set({ ...state })
+}
+
+function pauseTimer(id: number) {
+  const state = toastStore.get()
+  const toast = state.toasts.find((t) => t.id === id)
+  if (!toast || toast._paused) return
+
+  toast._paused = true
+  toast._remaining -= Date.now() - (toast._startTime ?? 0)
+  if (toast._timer) clearTimeout(toast._timer)
+  toastStore.set({ ...state })
+}
+
+function resumeTimer(id: number) {
+  const state = toastStore.get()
+  const toast = state.toasts.find((t) => t.id === id)
+  if (!toast || !toast._paused) return
+
+  toast._paused = false
+  startTimer(id)
+  toastStore.set({ ...state })
+}
+
+function closeToast(id: number) {
+  const state = toastStore.get()
+  const updated = state.toasts.map((t) =>
+    t.id === id ? { ...t, _closing: true } : t
+  )
+  toastStore.set({ ...state, toasts: updated })
+
+  setTimeout(() => {
+    const final = toastStore.get()
+    toastStore.set({
+      ...final,
+      toasts: final.toasts.filter((t) => t.id !== id),
+    })
+  }, 400)
+}
+
+export default component Toaster() {
+  const toasts = track([])
+
+  toastStore.subscribe((state) => {
+    @toasts = state.toasts
+  })
+
+  <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-[9999]">
+    for (const t of @toasts) {
+      <div
+        class={`
+          relative w-[300px] rounded-xl shadow-lg p-4 border
+          bg-white dark:bg-zinc-900
+          transition-all duration-400 ease-in-out cursor-default
+          ${
+            t.type === "success"
+              ? "border-green-500"
+              : t.type === "error"
+              ? "border-red-500"
+              : t.type === "info"
+              ? "border-blue-500"
+              : t.type === "warning"
+              ? "border-yellow-500"
+              : "border-zinc-200"
+          }
+          ${t._closing ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"}
+        `}
+        onMouseEnter={() => pauseTimer(t.id)}
+        onMouseLeave={() => resumeTimer(t.id)}
+      >
+        if (t.title) {
+          <h4 class="font-semibold mb-1">{t.title}</h4>
+        }
+        if (t.description) {
+          <p class="text-sm opacity-80">{t.description}</p>
+        }
+      </div>
+    }
+  </div>
+}

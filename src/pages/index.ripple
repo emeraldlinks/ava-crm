@@ -8,20 +8,42 @@ import ContactCard from "../components/homecomps/contact_card.ripple"
 import RecentWorks from "../components/homecomps/recent_work_card.ripple"
 import Theme from "../utils/theme.ripple"
 import FullContactComp from "../components/contactcomps/full_contact_card.ripple"
-
+import {activeContactStore} from "../stores/contact_store.ts"
 
 
 
 export default component Home(){
+  const contact = track(null)
+
+  activeContactStore.subscribe((state)=> {
+    @contact = state.contact
+  })
   <head>
-    <title>{`Ava 365 | Sales Hub`} </title>
+    <title>{`Ava 365 | ${@contact.name || "Sales Hub" }`} </title>
   </head>
+  
+  let dd = track(null)
+
+ const fettc = async ()=> {
+   const fetcc = await  fetch("http://localhost:3001")
+    const data =   await  fetcc.json()
+    @dd = data
+    console.log(data)
+    console.log( "data: ", data?.message)
+
+ }
+
+
+
+ fettc()
+
   <GeneralLayout classes="homepage  w-full">
   <div class="flex gap-1 " >
     <RecentWorks />
-    <div class="dark:bg-gradient-to-br dark:from-zinc-800 dark:via-[black] dark:to-zinc-900  bg-gradient-to-br p-4 gap-4 from-[#efff9c]  via-[#faf2e7] to-white  h-screen rounded-4xl mr-3 flex-1">
+    <div class="dark:bg-gradient-to-br z- dark:from-zinc-800 dark:via-[black] dark:to-zinc-900  bg-gradient-to-br pl-4 gap-4 from-[#efff9c]  via-[#faf2e7] to-white  h-screen rounded-4xl mr-3 flex-1">
 
     <div class="pagecontent">
+    
       <FullContactComp />
     </div>
 
