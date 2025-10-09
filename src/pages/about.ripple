@@ -1,14 +1,18 @@
-import {Link } from "ripple-file-router"
+import {Link, useRouter } from "ripple-file-router"
 import GeneralLayout from "../layouts/general.ripple"
-
+import { track } from "ripple"
 
 export default component About(){
     
-
+const router = useRouter()
   <GeneralLayout>
 
 <div class="about">
+  const {queries} = router
+ const qq = track(queries)
+  console.log(queries)
     <h2>{"About page"} </h2>
+    <p class="ss">{JSON.stringify(queries) } </p>
     <Link href="/" > {"Home"} </Link>
     <Link href="/about" > {"About"} </Link>
 

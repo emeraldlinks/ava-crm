@@ -1,0 +1,26 @@
+
+
+
+export default component PerformanceStats({ data }) {
+  <div class="grid grid-cols-4  max-md:grid-cols-1  mb-4 gap-3  ">
+    <div class=" dark:from-zinc-800 dark:via-[black] dark:to-zinc-900  bg-gradient-to-br pl-4  from-[#efff9c]  via-[#faf2e7] to-white  shadow rounded-xl p-4 text-center">
+      <h3 class="text-sm   text-gray-400">{"Calls"}</h3>
+      <p class="text-xl font-bold">{data.calls}</p>
+    </div>
+
+    <div class=" dark:from-zinc-800 dark:via-[black] dark:to-zinc-900  bg-gradient-to-br pl-4  from-[#efff9c]  via-[#faf2e7] to-white  shadow rounded-xl p-4 text-center">
+      <h3 class="text-sm text-gray-400">{"Emails"}</h3>
+      <p class="text-xl font-bold">{data.emails}</p>
+    </div>
+
+    <div class=" dark:from-zinc-800 dark:via-[black] dark:to-zinc-900  bg-gradient-to-br pl-4  from-[#efff9c]  via-[#faf2e7] to-white  shadow rounded-xl p-4 text-center">
+      <h3 class="text-sm text-gray-400">{"Deals"}</h3>
+      <p class="text-xl font-bold">{data.deals}</p>
+    </div>
+
+    <div class=" dark:from-zinc-800 dark:via-[black] dark:to-zinc-900  bg-gradient-to-br pl-4  from-[#efff9c]  via-[#faf2e7] to-white  shadow rounded-xl p-4 text-center">
+      <h3 class="text-sm text-gray-400">{"Revenue"}</h3>
+      <p class="text-xl font-bold">{data.revenue}</p>
+    </div>
+  </div>;
+}

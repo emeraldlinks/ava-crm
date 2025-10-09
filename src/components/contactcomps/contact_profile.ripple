@@ -14,9 +14,9 @@ export default component ContactProfileCard() {
 	});
 	
 	const items = TrackedArray.from([
-		{ name: 'Lead source', value: track(@contact.lead_source) },
-		{ name: 'Rating', value: track(@contact.rating) },
-		{ name: 'Status', value: track(@contact.status) },
+		{ name: 'Lead source', value: track(@contact?.lead_source) },
+		{ name: 'Rating', value: track(@contact?.rating) },
+		{ name: 'Status', value: track(@contact?.status) },
 	])
 
 	<div class="contact_profile_card flex flex-col sm:flex-row mt-8 justify-between gap-4 sm:gap-8 p-4 sm:p-0">
@@ -59,7 +59,7 @@ export default component ContactProfileCard() {
 								<div class="lead-source text-sm text-center sm:text-left">
 									<p class="text-gray-400 text-nowrap">{"Status" }</p>
 									<p class="text-black text-sm text-nowrap dark:text-white font-bold">
-										{@contact.status}
+										{@contact?.status}
 									</p>
 								</div>
 

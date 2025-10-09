@@ -1,35 +1,33 @@
+import type { Component } from 'ripple';
+import { track, on } from 'ripple';
+import { appStore } from 'ripple-file-router';
 
-import type {Component} from "ripple"
-import { track, on } from "ripple"
-import { appStore } from "ripple-file-router"
-
-interface Prop{
-    children: Component
+interface Prop {
+	children: Component;
 }
-export default component Theme(){
-    const theme = track(appStore.get().theme )
-    
-    appStore.subscribe((state)=> {
-        @theme = state.theme
-        window.document.documentElement.setAttribute("data-theme", @theme) 
-        window.document.documentElement.className = @theme.toString() 
-    })
 
+export default component Theme() {
+	const theme = track(appStore.get().theme);
 
-    on(window, "keydown", (e: KeyboardEvent)=> {
-        const tt = track("")
-       
-        if (e.ctrlKey && e.key === "d"){
-            
-            e.preventDefault()
-             if (@theme === "dark"){
-            @tt = "light"
-        }else{
-            @tt = "dark"
-        }
-            appStore.update({theme: @tt})
-        }
-    })
+	const tt = appStore.derive((s) => s.theme);
+	tt.subscribe((s) => {
+		@theme = s;
+		window.document.documentElement.setAttribute('data-theme', @theme);
+		window.document.documentElement.className = @theme.toString();
+	});
+	on(window, 'keydown', (e: KeyboardEvent) => {
+		const tt = track('');
 
-
+		if (e.ctrlKey && e.key === 'd') {
+			e.preventDefault();
+			if (@theme === 'dark') {
+				@tt = 'light';
+			} else {
+				@tt = 'dark';
+			}
+			appStore.update({
+				theme: @tt,
+			});
+		}
+	});
 }

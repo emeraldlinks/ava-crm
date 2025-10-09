@@ -180,13 +180,26 @@ const works: UserContactType[] = [
 
 
 export default component RecentWorks(){
-
-  const active_contact = track(null)
+const defaultContact: UserContactType = {
+  name: "",
+  image: "",
+  active: false,
+  activity: "",
+  type: "",
+  number: "",
+  count: 0,
+  lead_source: "",
+  rating: "",
+  status: "",
+  owner: ""
+}
+  const active_contact = track(defaultContact)
     activeContactStore.subscribe((state)=> {
-      @active_contact = state
+      @active_contact = state.contact
       
   })
 
+  
 
     <div class="h-[95vh] max-md:hidden shadow w-[30%] dark:bg-[#202020] bg-[#e3e3e3] rounded-4xl px-2 ">
     <div class="top-side mb- flex justify-between px-4 py-6 ">
@@ -207,7 +220,7 @@ export default component RecentWorks(){
         <span class="w-2/6 relative h-[1px] bg-gray-400 " >{""}</span>
     </div>
             for (const wrk of works ){
-                <ContactCard cont={wrk} active={@active_contact.contact.name === wrk.name }  />
+                <ContactCard cont={wrk} active={@active_contact?.name === wrk.name }  />
             }
         </div>
     </div>

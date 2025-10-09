@@ -1,0 +1,57 @@
+import { Link, useRouter } from 'ripple-file-router';
+
+export default component SalesTools() {
+	const tools = [
+		{
+			name: 'Call',
+			icon: 'ri-phone-fill',
+			color: 'green',
+		},
+		{
+			name: 'Email',
+			icon: 'ri-mail-fill',
+			color: 'blue',
+		},
+		{
+			name: 'Chat',
+			icon: 'ri-chat-3-fill',
+			color: 'yellow',
+		},
+		{
+			name: 'Add Note',
+			icon: 'ri-file-text-fill',
+			color: 'purple',
+		},
+		{
+			name: 'Schedule',
+			icon: 'ri-calendar-event-fill',
+			color: 'pink',
+		},
+		{
+			name: 'Task',
+			icon: 'ri-task-fill',
+			color: 'teal',
+		},
+	];
+
+	const router = useRouter()
+	router.on("start", path => console.log("path to", router.asPath))
+
+	const clickk = ()=> {
+		router.push("/shadow", false, false)
+	}
+	<div class="dark:from-zinc-900 mt-4 mb- dark:via-black dark:to-zinc-950 bg-gradient-to-br from-[#efff9c] via-[#faf2e7] to-white rounded-2xl shadow-lg p-5">
+		<h2 class="text-lg font-semibold mb-4">{'Sales Tools'}</h2>
+
+		<div class="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 gap-3">
+			<button onClick={()=> clickk()} > {"Test router"} </button>
+		for (const tool of tools) {
+			<Link onLoading={()=> console.log("loading....")} href="/about" queries={{name: "John", age: 20, tool: tool.name}} className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl 
+            bg-${tool.color}-50 hover:bg-${tool.color}-100 dark:bg-zinc-800 dark:hover:bg-zinc-700
+            transition shadow-sm`}>
+				<i class={`${tool.icon} text-${tool.color}-600 text-2xl`} />
+				<span class="text-sm font-medium text-gray-700 dark:text-gray-300">{tool.name}</span>
+			</Link>
+		}</div>
+	</div>
+}

@@ -1,0 +1,20 @@
+
+
+import GeneralLayout from "../../layouts/general.ripple"
+import SalesAccelerator from "../../components/sales/accelerator_comp.ripple"
+
+
+export default component SalesAcceleratorPage(){
+
+
+    <GeneralLayout> 
+
+        <div class="overflow-y-scroll h-[90vh]  ">
+            <SalesAccelerator />
+        </div>
+
+        
+        </GeneralLayout>
+}
+
+

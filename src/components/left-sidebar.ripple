@@ -77,10 +77,11 @@ export default component LeftSideBar(){
             for (const itm of mainItems){
                 <div class="subitems">
                     <div class="subitems flex flex-col gap-2 text-nowrap ">
-                        
-                    <p class={`itile font-medium ${@navOpen ? " ml-6 " : "ml-2 text-sm"} `}>{ @navOpen ? itm.name : "more"}</p>
+                        const spli = itm.name.split(" ");
+                        const more = spli.length > 1 ? spli[1] : spli[0];
+
+                    <p class={`itile font-medium ${@navOpen ? " ml-6 " : "ml-2 text-sm"} `}>{ @navOpen ? itm.name : more}</p>
                         for (const sub of itm.items){
-                            
                         <Link href={sub.url} className={`flex py-1 rounded-full pl-1 items-center gap-4 ${isActive(sub.url) ?  "bg-[#ecff8c] dark:text-black " : ""} ${!@navOpen ? "items-center flex justify-center  w-fit px-1": ""} `} ><i class={`${sub.icon} text-lg border-[0.2px] border-gray-400  rounded-full px-2 py-1 `} /> 
                         if (@navOpen){
 

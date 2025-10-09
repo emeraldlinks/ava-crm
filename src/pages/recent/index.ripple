@@ -1,5 +1,10 @@
 import { track } from 'ripple';
 import GeneralLayout from "../../layouts/general.ripple"
+import  RecentActivityCard from "../../components/recents/recent_card.ripple"
+
+
+
+
 
 export default component RecentActivities(){
   // Simulated data instead of fetching
@@ -11,15 +16,12 @@ export default component RecentActivities(){
   ]);
 
   <GeneralLayout >
-  <div class="recent-activities p-4 bg-white dark:bg-zinc-900 rounded-2xl shadow-md h-full overflow-auto">
+  <div class="recent-activities p-4 bg-[#d2d2d2] dark:bg-[#070707] rounded-2xl shadow-md h-full overflow-auto">
     <h2 class="text-lg font-semibold mb-3">{"Recent Activities"}</h2>
-    <ul class="flex flex-col gap-3">
+    <ul class="grid grid-cols-4 max-md:grid-cols-1 gap-2  ">
   
   for (const act of @activities){
-          <li class="p-3 rounded-lg bg-zinc-100 dark:bg-zinc-800 shadow-inner flex flex-col">
-            <span class="font-medium">{act.title}</span>
-            <span class="text-sm text-zinc-500 dark:text-zinc-400">{act.time}</span>
-          </li>
+       <RecentActivityCard />
     }
     </ul>
   </div>

@@ -1,0 +1,42 @@
+import { track, effect } from "ripple";
+import LeadList from "./lead-list.ripple";
+import ActivityFeed from "./activity-feed.ripple";
+import PerformanceStats from "./performance-stats.ripple";
+import  SalesTools from "./tools.ripple"
+
+
+
+
+
+export default component SalesAccelerator() {
+  const leads = track([
+    { name: "Naomi Rodriguez", company: "Acme Inc", score: 92, next_action: "Follow up", time: "Today 3PM" },
+    { name: "Marcus Lee", company: "Zenith Tech", score: 85, next_action: "Send Proposal", time: "Tomorrow 10AM" },
+    { name: "Sofia Martins", company: "GreenCore", score: 78, next_action: "Schedule Demo", time: "Friday 11AM" },
+  ]);
+
+  const activities = track([
+    { type: "Call", description: "Spoke with John Doe", time: "10:32 AM" },
+    { type: "Email", description: "Sent pricing to Sarah", time: "9:20 AM" },
+    { type: "Meeting", description: "Demo with Marcus Lee", time: "Yesterday" },
+  ]);
+
+  const performance = track({
+    calls: 38,
+    emails: 25,
+    deals: 4,
+    revenue: "$14,500",
+  });
+
+  <div class="w-full p-6 space-y-6 overflow-scroll  h-[99vh]">
+    <h1 class="text-2xl font-bold mb-2">{"Sales Accelerator"}</h1>
+
+    <PerformanceStats data={@performance} />
+
+    <div class="grid grid-cols-3 max-md:grid-cols-1 gap-6">
+      <LeadList leads={@leads} />
+      <ActivityFeed activities={@activities} />
+    <SalesTools />
+    </div>
+  </div>;
+}

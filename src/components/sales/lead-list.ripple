@@ -1,0 +1,21 @@
+export default component LeadList({ leads }) {
+  <div class=" dark:from-zinc-800 dark:via-[black] dark:to-zinc-900  bg-gradient-to-br pl-4  from-[#efff9c]  via-[#faf2e7] to-white  rounded-2xl shadow p-5">
+    <h2 class="text-lg font-semibold mb-3">{"Prioritized Leads"}</h2>
+
+    <ul class="space-y-3 gap-3 flex flex-col">
+      for (const lead of leads){
+        <li class="border p-3 rounded-lg  hover:bg-gray-100 transition">
+          <div class="flex justify-between">
+            <span class="font-medium">{lead.name}</span>
+            <span class="text-sm text-gray-500">{lead.company}</span>
+          </div>
+          <div class="text-sm text-gray-600 mt-1">{"Next: "}{lead.next_action}</div>
+          <div class="flex justify-between text-xs text-gray-400 mt-1">
+            <span>{"Score: "}{lead.score}</span>
+            <span>{lead.time}</span>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+}

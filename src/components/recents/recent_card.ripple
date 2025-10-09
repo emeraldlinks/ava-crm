@@ -1,0 +1,57 @@
+import { track } from "ripple";
+
+export default component RecentActivityCard() {
+  const activity = track({
+    name: "Call with Gabriela Christiansen",
+    time: "8:45 AM",
+    type: "Call",
+    status: "Completed",
+    user: {
+      name: "Kenny Smith",
+      role: "Sales Lead",
+      image: "/aim.png",
+    },
+  });
+
+  <div
+    class="w-full  min-w-[15rem] max-w-md p-5 rounded-xl  dark:from-zinc-800 dark:via-[black] dark:to-zinc-900  bg-gradient-to-br pl-4  from-[#efff9c]  via-[#faf2e7] to-white shadow-md hover:shadow-lg transition-all duration-300 flex flex-col gap-4 cursor-pointer"
+  >
+    {/* Top Section */}
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img
+          src={@activity.user.image}
+          alt={@activity.user.name}
+          class="w-12 h-12 rounded-full border border-white shadow-sm"
+        />
+        <div>
+          <h2 class="font-semibold text-gray-800 dark:text-gray-100">{@activity.name}</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {@activity.user.name} {" • "} {@activity.user.role}
+          </p>
+        </div>
+      </div>
+
+     
+    </div>
+
+     <span
+        class={`px-3 py-1 text-xs rounded-full ${
+          @activity.status === "Completed"
+            ? "bg-green-500 text-white"
+            : "bg-yellow-400 text-gray-900"
+        }`}
+      >
+        {@activity.status}
+      </span>
+
+    {/* Middle Section */}
+    <div class="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400 mt-2">
+      <span>{@activity.type}</span>
+      <span>{@activity.time}</span>
+    </div>
+
+    {/* Bottom Line */}
+    <div class="w-full h-[4px] rounded-full bg-gradient-to-r from-green-300 to-lime-200 mt-2"></div>
+  </div>;
+}
